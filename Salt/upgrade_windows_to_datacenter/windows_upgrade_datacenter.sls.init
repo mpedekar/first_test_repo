@@ -1,0 +1,6 @@
+upgrade_windows_to_datacenter:
+  cmd.script:
+    - source: salt://scripts/upgrade_to_datacenter.ps1  #Change script file location within Salt.
+    - shell: powershell
+    - runas: SYSTEM
+    - timeout: 3600
