@@ -33,13 +33,19 @@ $task = New-ScheduledTask -Action $action -Principal $principal
 
 # Register and run task
 Register-ScheduledTask -TaskName $taskName -InputObject $task -Force | Out-Null
+
 Start-ScheduledTask -TaskName $taskName
 
-# Wait until folder is gone (max 60 seconds)
-$timeout = 60
+# Wait a few seconds to allow the scheduled task to start and deletion to begin
+Start-Sleep -Seconds 5
+
+# Wait until folder is gone (max 90 seconds)
+$timeout = 90
 while ((Test-Path $profilePath) -and $timeout -gt 0) {
-    Start-Sleep -Seconds 2
-    $timeout -= 2
+    Start-Sleep -Seconds 3
+    $timeout -= 3
+    # Extra check: refresh folder info to avoid caching
+    [System.IO.Directory]::RefreshCache()
 }
 
 # Cleanup scheduled task
