@@ -46,7 +46,4 @@ $errorMessage | Out-File -Append -FilePath $errorLogFile
             }
 
 }
-$result
-#$result | Export-Csv  -NoTypeInformation
-$ReportName = "RDS_Server_Role_Details_$dateTime.csv"
-$result | Export-Csv $ReportName -NoTypeInformation
+$result | Export-Csv "E:\Temp\RDS\RDS_Server_Role_Details_$dateTime.csv" -NoTypeInformation
